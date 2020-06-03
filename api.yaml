@@ -10,9 +10,16 @@ info:
 servers:
 - url: https://cors-anywhere.herokuapp.com/prod.instant-system.com/InstantCore
 - url: https://prod.instant-system.com/InstantCore
+tags:
+- name: v3
+  description: version 3, utilisée pour quasiment tout
+- name: v1
+  description: version 1, encore utilisée pour certains endpoints visiblement pas encore portés en v3
 paths:
   /v3/networks/{networkId}:
     get:
+      tags:
+      - v3
       operationId: getNetworkById
       parameters:
       - name: networkId
@@ -45,6 +52,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v3/networks/{networkId}/lines:
     get:
+      tags:
+      - v3
       operationId: getLines
       parameters:
       - name: networkId
@@ -79,6 +88,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v3/networks/{networkId}/lines/disruptions:
     get:
+      tags:
+      - v3
       operationId: getDisruptions
       parameters:
       - name: networkId
@@ -128,6 +139,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v3/networks/{networkId}/lines/{lineId}:
     get:
+      tags:
+      - v3
       operationId: getLineById
       parameters:
       - name: networkId
@@ -170,6 +183,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v3/networks/{networkId}/lines/{lineId}/stopAreas:
     get:
+      tags:
+      - v3
       operationId: getStopAreas
       parameters:
       - name: networkId
@@ -214,6 +229,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v3/networks/{networkId}/lines/{lineId}/stopAreas/{stopAreaId}/schedules:
     get:
+      tags:
+      - v3
       operationId: getStopAreaSchedules
       parameters:
       - name: networkId
@@ -368,6 +385,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v3/networks/{networkId}/launchNews:
     get:
+      tags:
+      - v3
       operationId: getLaunchNews
       parameters:
       - name: networkId
@@ -402,6 +421,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v3/networks/{networkId}/proximity:
     get:
+      tags:
+      - v3
       operationId: getProximities
       parameters:
       - name: networkId
@@ -469,6 +490,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v1/GetNetwork:
     get:
+      tags:
+      - v1
       operationId: v1_getNetworkById
       parameters:
       - name: key
@@ -503,6 +526,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v1/networks/{networkId}/banners:
     get:
+      tags:
+      - v1
       operationId: v1_getBanners
       parameters:
       - name: networkId
@@ -533,6 +558,8 @@ paths:
                 $ref: '#/components/schemas/APIError'
   /v1/CheckPlaces:
     post:
+      tags:
+      - v1
       operationId: v1_checkPlaces
       parameters:
       - name: key
@@ -633,6 +660,24 @@ paths:
                 $ref: '#/components/schemas/APIError'
 components:
   schemas:
+    APIError:
+      required:
+      - error
+      - message
+      - status
+      type: object
+      properties:
+        status:
+          type: integer
+          description: Code HTTP
+          example: 503
+        error:
+          type: string
+          enum:
+          - NETWORK_NOT_LOADED
+        message:
+          type: string
+          example: Service unavailable. Please try again in a moment.
     YesNo:
       type: string
       enum:
@@ -641,6 +686,262 @@ components:
     Timestamp:
       type: string
       format: date-time
+    Mode:
+      type: string
+      enum:
+      - TRAIN
+      - RAPIDTRANSIT
+      - METRO
+      - RAILSHUTTLE
+      - FUNICULAR
+      - TRAM
+      - BUS
+      - COACH
+      - SHUTTLE
+      - BIKESHARING
+      - VTC
+      - CAR
+      - RIDESHARING
+      - CARRENTAL
+      - PRIVATETAXI
+      - BIKE
+      - WALK
+      - BIKEPARK
+      - PARK
+      - PARKANDRIDE
+      - FERRY
+      - LOCALTRAIN
+      - TOD
+      - AERIALLIFT
+      - FLIGHT
+    v3_Network:
+      required:
+      - id
+      - lat
+      - lon
+      - name
+      - networkLoaded
+      - tripplannerLoaded
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        networkLoaded:
+          type: boolean
+        tripplannerLoaded:
+          type: boolean
+        lat:
+          type: number
+        lon:
+          type: number
+        modes:
+          type: array
+          example:
+          - BUS
+          items:
+            $ref: '#/components/schemas/Mode'
+    v3_StopPointBase:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        lat:
+          type: number
+          example: 45.90641
+        lon:
+          type: number
+          example: 6.11388
+    v3_StopPoint:
+      allOf:
+      - $ref: '#/components/schemas/v3_StopPointBase'
+      - type: object
+        properties:
+          zone:
+            type: integer
+    v3_StopAreaType:
+      type: string
+      enum:
+      - LINE
+    v3_StopArea:
+      allOf:
+      - $ref: '#/components/schemas/v3_StopPointBase'
+      - type: object
+        properties:
+          city:
+            type: string
+            example: Annecy
+          postalCode:
+            type: string
+            example: "74600"
+          actions:
+            type: array
+            items:
+              type: object
+              properties:
+                elementType:
+                  type: string
+                  enum:
+                  - PRIMARY_ACTION
+                  - SECONDARY_ACTION
+                actionType:
+                  type: string
+                  enum:
+                  - GoToLocationAction
+                  - GoFromLocationAction
+                  - OpenTimeTablesAction
+                enabled:
+                  type: boolean
+                labelKey:
+                  type: string
+    v3_Line:
+      required:
+      - color
+      - id
+      - lName
+      - mode
+      - operatorId
+      - sName
+      - subNetwork
+      - textColor
+      type: object
+      properties:
+        operatorId:
+          type: string
+          example: SIBRA
+        id:
+          type: string
+          example: "51"
+        sName:
+          type: string
+          description: Nom court
+          example: "1"
+        lName:
+          type: string
+          description: Nom long
+          example: Ligne 1
+        mode:
+          $ref: '#/components/schemas/Mode'
+        subNetwork:
+          type: object
+          properties:
+            id:
+              type: string
+              example: ""
+            name:
+              type: string
+              example: ""
+        color:
+          type: string
+          format: color
+          example: 00A13A
+        textColor:
+          type: string
+          format: color
+          example: FFFFFF
+        mobilityFacilities:
+          type: object
+          properties:
+            wheelchairs:
+              type: string
+              enum:
+              - AVAILABLE
+        scheduleSearchMode:
+          $ref: '#/components/schemas/v3_ScheduleSearchMode'
+        scheduleSearchModes:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_ScheduleSearchMode'
+        favoriteModes:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_FavoriteMode'
+        hasCurrentDisruptions:
+          type: boolean
+        disruptions:
+          type: object
+          properties:
+            level:
+              $ref: '#/components/schemas/v3_DisruptionLevel'
+            currents:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: AIX:Disruption:28436
+        codes:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                example: TINEA:ref
+              value:
+                type: string
+                format: int64
+                example: "1056401"
+    v3_ScheduleSearchMode:
+      type: string
+      enum:
+      - DIRECTIONS_STOPPOINTS
+    v3_FavoriteMode:
+      type: string
+      enum:
+      - LINE_STOPPOINT_DIRECTION
+      - LINE_STOPAREA
+      - STATION
+    v3_Disruption:
+      required:
+      - endValidity
+      - id
+      - issueDate
+      - operatorId
+      - startValidity
+      - title
+      type: object
+      properties:
+        operatorId:
+          type: string
+          example: AIX
+        id:
+          type: string
+          example: AIX:Disruption:28436
+        title:
+          type: string
+          example: INFO TRAFIC des lignes à partir du 02/06
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+                format: html
+        level:
+          $ref: '#/components/schemas/v3_DisruptionLevel'
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_Line'
+        issueDate:
+          $ref: '#/components/schemas/Timestamp'
+        startValidity:
+          $ref: '#/components/schemas/Timestamp'
+        endValidity:
+          $ref: '#/components/schemas/Timestamp'
+        updateDate:
+          $ref: '#/components/schemas/Timestamp'
+    v3_DisruptionLevel:
+      type: string
+      enum:
+      - WARN
+      - INFO
     v1_Network:
       type: object
       properties:
@@ -961,34 +1262,6 @@ components:
         logo:
           type: string
           format: uri
-    Mode:
-      type: string
-      enum:
-      - TRAIN
-      - RAPIDTRANSIT
-      - METRO
-      - RAILSHUTTLE
-      - FUNICULAR
-      - TRAM
-      - BUS
-      - COACH
-      - SHUTTLE
-      - BIKESHARING
-      - VTC
-      - CAR
-      - RIDESHARING
-      - CARRENTAL
-      - PRIVATETAXI
-      - BIKE
-      - WALK
-      - BIKEPARK
-      - PARK
-      - PARKANDRIDE
-      - FERRY
-      - LOCALTRAIN
-      - TOD
-      - AERIALLIFT
-      - FLIGHT
     v1_Banner:
       type: object
       properties:
@@ -1017,249 +1290,3 @@ components:
           type: string
         position:
           type: integer
-    v3_Network:
-      required:
-      - id
-      - lat
-      - lon
-      - name
-      - networkLoaded
-      - tripplannerLoaded
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        networkLoaded:
-          type: boolean
-        tripplannerLoaded:
-          type: boolean
-        lat:
-          type: number
-        lon:
-          type: number
-        modes:
-          type: array
-          example:
-          - BUS
-          items:
-            $ref: '#/components/schemas/Mode'
-    v3_StopPointBase:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        lat:
-          type: number
-          example: 45.90641
-        lon:
-          type: number
-          example: 6.11388
-    v3_StopPoint:
-      allOf:
-      - $ref: '#/components/schemas/v3_StopPointBase'
-      - type: object
-        properties:
-          zone:
-            type: integer
-    v3_StopAreaType:
-      type: string
-      enum:
-      - LINE
-    v3_StopArea:
-      allOf:
-      - $ref: '#/components/schemas/v3_StopPointBase'
-      - type: object
-        properties:
-          city:
-            type: string
-            example: Annecy
-          postalCode:
-            type: string
-            example: "74600"
-          actions:
-            type: array
-            items:
-              type: object
-              properties:
-                elementType:
-                  type: string
-                  enum:
-                  - PRIMARY_ACTION
-                  - SECONDARY_ACTION
-                actionType:
-                  type: string
-                  enum:
-                  - GoToLocationAction
-                  - GoFromLocationAction
-                  - OpenTimeTablesAction
-                enabled:
-                  type: boolean
-                labelKey:
-                  type: string
-    v3_Line:
-      required:
-      - color
-      - id
-      - lName
-      - mode
-      - operatorId
-      - sName
-      - subNetwork
-      - textColor
-      type: object
-      properties:
-        operatorId:
-          type: string
-          example: SIBRA
-        id:
-          type: string
-          example: "51"
-        sName:
-          type: string
-          description: Nom court
-          example: "1"
-        lName:
-          type: string
-          description: Nom long
-          example: Ligne 1
-        mode:
-          $ref: '#/components/schemas/Mode'
-        subNetwork:
-          type: object
-          properties:
-            id:
-              type: string
-              example: ""
-            name:
-              type: string
-              example: ""
-        color:
-          type: string
-          format: color
-          example: 00A13A
-        textColor:
-          type: string
-          format: color
-          example: FFFFFF
-        mobilityFacilities:
-          type: object
-          properties:
-            wheelchairs:
-              type: string
-              enum:
-              - AVAILABLE
-        scheduleSearchMode:
-          $ref: '#/components/schemas/v3_ScheduleSearchMode'
-        scheduleSearchModes:
-          type: array
-          items:
-            $ref: '#/components/schemas/v3_ScheduleSearchMode'
-        favoriteModes:
-          type: array
-          items:
-            $ref: '#/components/schemas/v3_FavoriteMode'
-        hasCurrentDisruptions:
-          type: boolean
-        disruptions:
-          type: object
-          properties:
-            level:
-              $ref: '#/components/schemas/v3_DisruptionLevel'
-            currents:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    example: AIX:Disruption:28436
-        codes:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                example: TINEA:ref
-              value:
-                type: string
-                format: int64
-                example: "1056401"
-    v3_ScheduleSearchMode:
-      type: string
-      enum:
-      - DIRECTIONS_STOPPOINTS
-    v3_FavoriteMode:
-      type: string
-      enum:
-      - LINE_STOPPOINT_DIRECTION
-      - LINE_STOPAREA
-      - STATION
-    v3_Disruption:
-      required:
-      - endValidity
-      - id
-      - issueDate
-      - operatorId
-      - startValidity
-      - title
-      type: object
-      properties:
-        operatorId:
-          type: string
-          example: AIX
-        id:
-          type: string
-          example: AIX:Disruption:28436
-        title:
-          type: string
-          example: INFO TRAFIC des lignes à partir du 02/06
-        messages:
-          type: array
-          items:
-            type: object
-            properties:
-              text:
-                type: string
-                format: html
-        level:
-          $ref: '#/components/schemas/v3_DisruptionLevel'
-        lines:
-          type: array
-          items:
-            $ref: '#/components/schemas/v3_Line'
-        issueDate:
-          $ref: '#/components/schemas/Timestamp'
-        startValidity:
-          $ref: '#/components/schemas/Timestamp'
-        endValidity:
-          $ref: '#/components/schemas/Timestamp'
-        updateDate:
-          $ref: '#/components/schemas/Timestamp'
-    v3_DisruptionLevel:
-      type: string
-      enum:
-      - WARN
-      - INFO
-    APIError:
-      required:
-      - error
-      - message
-      - status
-      type: object
-      properties:
-        status:
-          type: integer
-          description: Code HTTP
-          example: 503
-        error:
-          type: string
-          enum:
-          - NETWORK_NOT_LOADED
-        message:
-          type: string
-          example: Service unavailable. Please try again in a moment.
