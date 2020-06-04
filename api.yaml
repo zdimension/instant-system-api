@@ -254,8 +254,7 @@ paths:
           type: string
       - name: displayName
         in: query
-        description: Nom de la destination de la ligne (destinationDisplay)
-        required: true
+        description: Nom de la destination de la ligne (destinationDisplay). Doit être soit vide soit correct. Si incorrect, le tableau "directions" sera manquant.
         example: PARC DES GLAISINS
         schema:
           type: string
