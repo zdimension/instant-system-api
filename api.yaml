@@ -249,18 +249,24 @@ paths:
         in: path
         description: ID de l'arrêt
         required: true
+        example: ISSTOPPLACE:196
         schema:
           type: string
       - name: displayName
         in: query
+        description: Nom de la destination de la ligne (destinationDisplay)
+        required: true
+        example: PARC DES GLAISINS
         schema:
           type: string
       - name: key
         in: query
+        description: inconnu, peut-être un reste de la v1
         schema:
           type: integer
       - name: userlatlon
         in: query
+        description: inconnu
         schema:
           type: string
       responses:
@@ -331,6 +337,7 @@ paths:
                                             type: string
                                           destinationDisplay:
                                             type: string
+                                            example: PARC DES GLAISINS
                                           stopAreaId:
                                             type: string
                                           stopPointId:
