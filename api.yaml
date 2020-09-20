@@ -623,7 +623,7 @@ components:
     NetworkId:
       type: integer
       description: > 
-        Liste des réseaux au 04/08/2020 :
+        Liste des réseaux au 20/09/2020 :
           * 1  : [Aix en Bus](https://www.aixenbus.fr/) (Aix-en-Provence)
           * 2  : [RATP](https://www.ratp.fr/) (Région parisienne)
           * 3  : [Synchro Bus](https://www.synchro-bus.fr/) (Chambéry)
@@ -672,6 +672,7 @@ components:
           * 54 : [STIB-MIVB](http://www.stib-mivb.be/) (Brussels)
           * 55 : [LE MET'](https://lemet.fr/) (Metz)
           * 58 : [CP ZOU](https://zou.maregionsud.fr/) (Région Sud)
+          * 59 : [TPL Mobilités](https://www.tlp.aeroport.fr/navettes-bus) (Tarbes-Lourdes-Pyrénées)
           * 61 : [Mamp](https://www.lepilote.com/) (Métropole Aix-Marseille-Provence)
     APIError:
       required:
