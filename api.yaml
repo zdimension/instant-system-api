@@ -672,7 +672,7 @@ components:
           * 54 : [STIB-MIVB](http://www.stib-mivb.be/) (Brussels)
           * 55 : [LE MET'](https://lemet.fr/) (Metz)
           * 58 : [CP ZOU](https://zou.maregionsud.fr/) (Région Sud)
-          * 61 : Mamp (?)
+          * 61 : [Mamp](https://www.lepilote.com/) (Métropole Aix-Marseille-Provence)
     APIError:
       required:
       - error
