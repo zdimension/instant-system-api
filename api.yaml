@@ -623,9 +623,9 @@ components:
     NetworkId:
       type: integer
       description: > 
-        Liste des réseaux au 20/09/2020 :
+        Liste des réseaux au 28/03/2021 :
           * 1  : [Aix en Bus](https://www.aixenbus.fr/) (Aix-en-Provence)
-          * 2  : [RATP](https://www.ratp.fr/) (Région parisienne)
+          * 2  : [RATP](https://www.ratp.fr/) (Région parisienne) - down 28/03/2021
           * 3  : [Synchro Bus](https://www.synchro-bus.fr/) (Chambéry)
           * 4  : [Rubis](https://www.rubis.grandbourg.fr/) (Bourg-en-Bresse)
           * 5  : [Bibus](https://www.bibus.fr/) (Brest)
@@ -640,7 +640,7 @@ components:
           * 14 : [Transvilles](https://www.transvilles.com/) (Valenciennes)
           * 17 : [Boogi Nice](https://www.boogi.fr/) (Nice)
           * 18 : [Vianavigo](https://www.vianavigo.com/) (Île-de-France)
-          * 19 : [Boogi Bordeaux](https://www.boogi.fr/) (Bordeaux)
+          * 19 : [Boogi Bordeaux](https://www.boogi.fr/) (Bordeaux) - down 28/03/2021
           * 20 : [Ginko Voit'](https://www.ginko.voyage/) (Besançon)
           * 21 : [Domaine des 2 Alpes](https://www.les2alpes.com/fr/commerces-et-services/les-navettes-gratuites.html) (Les Deux Alpes)
           * 22 : [ZOU](https://zou.maregionsud.fr/) (Région Sud)
@@ -669,11 +669,19 @@ components:
           * 48 : [RATP El Djazaïr](https://www.ratpeldjazair.com/) (Alger)
           * 49 : [Astuce](https://www.reseau-astuce.fr/) (Rouen Métropole)
           * 51 : [NTecC](https://www.ntecc.fr/) (Ales)
+          * 53 : [Jybus](https://www.jybus.fr/) (Rumilly)
           * 54 : [STIB-MIVB](http://www.stib-mivb.be/) (Brussels)
           * 55 : [LE MET'](https://lemet.fr/) (Metz)
           * 58 : [CP ZOU](https://zou.maregionsud.fr/) (Région Sud)
           * 59 : [TPL Mobilités](https://www.tlp.aeroport.fr/navettes-bus) (Tarbes-Lourdes-Pyrénées)
           * 61 : [Mamp](https://www.lepilote.com/) (Métropole Aix-Marseille-Provence)
+          * 62 : [QUB](https://www.qub.fr/) (Quimper)
+          * 64 : maasPro
+          * 66 : [TUL](https://www.tul-laval.com/fr/) (Laval)
+          * 67 : [JVMalin](http://www.jvmalin.fr/fr/) (Centre-Val de Loire)
+          * 68 : [Lignes d'Azur](https://www.lignesdazur.com/) (Nice Côte d'Azur)
+          * 69 : [Ruban](https://www.rubantransport.com/) (Porte de l'Isère)
+          * 72 : [Lausanne](https://www.t-l.ch/)
     APIError:
       required:
       - error
