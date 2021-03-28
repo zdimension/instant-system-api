@@ -8,8 +8,8 @@ info:
   license:
     name: "MIT License"
 servers:
-- url: https://cors-anywhere.herokuapp.com/prod.instant-system.com/InstantCore
-- url: https://cors-anywhere.herokuapp.com/dev.instant-system.com/InstantCore
+- url: https://thingproxy.freeboard.io/fetch/https://prod.instant-system.com/InstantCore
+- url: https://thingproxy.freeboard.io/fetch/https://dev.instant-system.com/InstantCore
 - url: https://prod.instant-system.com/InstantCore
 - url: https://dev.instant-system.com/InstantCore
 tags:
