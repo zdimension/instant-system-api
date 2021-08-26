@@ -4,7 +4,7 @@ info:
   description: "Documentation de l'API Instant-System utilisée par beaucoup de réseaux de transports en commun"
   contact: 
     email: "me@zdimension.fr"
-  version: 1.0.1
+  version: 1.0.2
   license:
     name: "MIT License"
 servers:
