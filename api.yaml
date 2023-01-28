@@ -4,12 +4,12 @@ info:
   description: "Documentation de l'API Instant-System utilisée par beaucoup de réseaux de transports en commun"
   contact: 
     email: "me@zdimension.fr"
-  version: 1.0.2
+  version: 1.0.3
   license:
     name: "MIT License"
 servers:
-- url: https://thingproxy.freeboard.io/fetch/https://prod.instant-system.com/InstantCore
-- url: https://thingproxy.freeboard.io/fetch/https://dev.instant-system.com/InstantCore
+- url: https://corsproxy.io/?https://prod.instant-system.com/InstantCore
+- url: https://corsproxy.io/?https://dev.instant-system.com/InstantCore
 - url: https://prod.instant-system.com/InstantCore
 - url: https://dev.instant-system.com/InstantCore
 tags:
