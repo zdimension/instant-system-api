@@ -620,6 +620,7 @@ components:
   schemas:
     NetworkId:
       type: integer
+      # for i in {1..200}; do res=$(2>/dev/null curl -X GET "https://prod.instant-system.com/InstantCore/v3/networks/$i" -H "accept: application/json" | jq '.networks[0].name' 2>/dev/null); if [ $? -eq 0 ]; then echo "$i $res"; fi; done
       description: > 
         Liste des réseaux au 28/01/2023 :
           * 1  : [Aix en Bus](https://www.aixenbus.fr/) (Aix-en-Provence)
