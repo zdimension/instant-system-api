@@ -4,7 +4,7 @@ info:
   description: "Documentation de l'API Instant-System utilisée par beaucoup de réseaux de transports en commun"
   contact: 
     email: "me@zdimension.fr"
-  version: 1.0.4
+  version: 1.0.5
   license:
     name: "MIT License"
 servers:
@@ -620,17 +620,15 @@ components:
   schemas:
     NetworkId:
       type: integer
-      # for i in {1..200}; do res=$(2>/dev/null curl -X GET "https://prod.instant-system.com/InstantCore/v3/networks/$i" -H "accept: application/json" | jq '.networks[0].name' 2>/dev/null); if [ $? -eq 0 ]; then echo "$i $res"; fi; done
+      # for i in {1..200}; do res=$(2>/dev/null curl -X GET "https://prod.instant-system.com/InstantCore/v1/GetNetwork?key=$i" -H "accept: application/json" | jq '(.networks[0].name + " " + .networks[0].contacts[0].value)' 2>/dev/null); if [ $? -eq 0 ]; then echo "$i $res"; fi; done
       description: > 
-        Liste des réseaux au 28/01/2023 :
+        Liste des réseaux au 13/04/2025 :
           * 1  : [Aix en Bus](https://www.aixenbus.fr/) (Aix-en-Provence)
           * 3  : [Synchro Bus](https://www.synchro-bus.fr/) (Chambéry)
           * 4  : [Rubis](https://www.rubis.grandbourg.fr/) (Bourg-en-Bresse)
           * 5  : [Bibus](https://www.bibus.fr/) (Brest)
           * 7  : [Ondéa](https://www.ondea-bus.fr/) (Aix-les-Bains)
-          * 8  : [Stivo](https://www.stivo.com/) (Cergy-Pontoise)
           * 10 : [impulsyon](https://www.impulsyon.fr/) (La Roche-sur-Yon)
-          * 11 : [Autocars Pascal](https://autocarspascal.fr/) (Région Aquitaine)
           * 12 : [SIBRA](https://www.sibra.fr/) (Annecy)
           * 14 : [Transvilles](https://www.transvilles.com/) (Valenciennes)
           * 20 : [Ginko Voit'](https://www.ginko.voyage/) (Besançon)
@@ -640,23 +638,16 @@ components:
           * 25 : [Setram](https://www.setram.fr/) (Le Mans)
           * 26 : [Kiceo](https://www.kiceo.fr/) (Golfe du Morbihan)
           * 27 : [Zoom](https://www.buszoom.com/) (Chalon-sur-Saône)
-          * 28 : [SQYBUS](https://www.sqybus.fr/) (Saint-Quentin en Yvelines)
-          * 29 : [Groupe Lacroix](http://www.groupe-lacroix.fr/) (Île-de-France)
           * 30 : [Divia](https://www.divia.fr/) (Dijon)
-          * 31 : maasPro
-          * 33 : [STAR](https://www.star.fr/) (Rennes)
-          * 34 : [Destineo](https://www.destineo.fr/fr/) (Pays de la Loire)
           * 35 : [Sillages - Cap Azur](https://sillages.paysdegrasse.fr/) (Pays de Grasse)
           * 39 : [CTRL](https://www.ctrl.fr/) (Lorient)
           * 45 : [Fluo](https://www.fluo.eu/) (Grand Est)
           * 46 : [Citéa](https://www.vrd-mobilites.fr/) (Valence)
           * 47 : [Envibus](https://www.envibus.fr/) (Sophia Antipolis)
-          * 49 : [Astuce](https://www.reseau-astuce.fr/) (Rouen Métropole)
           * 50 : [TCL](https://www.tcl.fr/) (Lyon)
           * 51 : [NTecC](https://www.ntecc.fr/) (Ales)
           * 53 : [Jybus](https://www.jybus.fr/) (Rumilly)
           * 55 : [LE MET'](https://lemet.fr/) (Metz)
-          * 56 : [TER Dakar](https://www.terdakar.sn/) (Dakar)
           * 58 : [CP ZOU](https://zou.maregionsud.fr/) (Région Sud)
           * 59 : [TPL Mobilités](https://www.tlp.aeroport.fr/navettes-bus) (Tarbes-Lourdes-Pyrénées)
           * 61 : [Mamp](https://www.lepilote.com/) (Métropole Aix-Marseille-Provence)
@@ -668,7 +659,6 @@ components:
           * 69 : [Ruban](https://www.rubantransport.com/) (Porte de l'Isère)
           * 70 : [SMTC](https://www.smtc-clermont-agglo.fr) (Clermont-Ferrand)
           * 71 : [Atoumod](https://atoumod.fr) (Haute-Normandie)
-          * 72 : [Champagne mobilités](https://champagne-mobilites.fr) (Champagne)
           * 73 : [Mobility Cairo](https://www.mobilitycairo.com) (Le Caire)
           * 74 : [Cap Cotentin](https://www.capcotentin.fr/) (Cotentin)
           * 76 : [Ales'y](https://www.ntecc.fr/) (Ales)
@@ -684,6 +674,7 @@ components:
           * 87 : maasPro
           * 88 : [SudLib](https://sudlib.fr/) (Martinique)
           * 89 : [SMTC](https://www.smtc-clermont-agglo.fr) (Clermont-Ferrand)
+          * 90 : [Occitanie-LiO](https://lio.laregion.fr/) (Occitanie)
           * 91 : Occitanie
           * 92 : HautsDeFrance
           * 93 : [TXIK TXAK](https://www.txiktxak.fr/) (Pays Basque)
@@ -691,6 +682,41 @@ components:
           * 95 : [L'va](https://www.lva-mobilite.fr/) (Vienne)
           * 97 : [Autolinee Toscane](https://www.at-bus.it/) (Toscane)
           * 98 : [TCAT](https://www.tcat.fr/) (Troyes)
+          * 104 : [TUB](https://www.tub.bzh/) (Saint-Brieuc)
+          * 105 : [Casatramway](https://www.casatramway.ma/) (Casablanca)
+          * 110 : [PAVIA](https://www.comune.pv.it/) (Pavie)
+          * 111 : [Eveole](https://www.eveole.com/) (Douai)
+          * 112 : [Mistral](https://www.reseaumistral.com/) (Toulon)
+          * 114 : [Choletbus](https://www.choletbus.fr/) (Cholet)
+          * 117 : [AggloBus](https://www.agglobus.com/) (Bourges)
+          * 119 : [Artis](https://www.bus-artis.fr/) (Arras)
+          * 120 : [Oùra](https://www.oura.fr/) (Région Auvergne-Rhône-Alpes)
+          * 121 : [Tul-Laon](https://www.tul-laon.fr/) (Laon)
+          * 123 : [Île de la Réunion Mobilités](https://iledelareunion-mobilites.re/) (La Réunion)
+          * 124 : [moova](https://www.moova-mobilites.fr/) (Vesoul)
+          * 125 : VIAJAR no Barreiro
+          * 126 : SIALL
+          * 128 : Zilina Mobility
+          * 129 : LezGOBO
+          * 130 : Fluo
+          * 133 : [Grand Dole Mobilités](https://www.grandole-mobilites.fr/) (Dole)
+          * 135 : [AuxR_M](https://www.auxrmlebus.com/) (Auxerre)
+          * 137 : Proxim iTi
+          * 138 : [Envia](https://www.tout-envia.com/) (Arles)
+          * 139 : CESENAMOB
+          * 142 : Démo région
+          * 144 : [Tere Tahiti](https://teretahiti.pf/) (Tahiti)
+          * 146 : Bustac
+          * 147 : Alpbus
+          * 148 : Buss
+          * 149 : [Libeo](https://www.libeo-brive.fr/) (Brive)
+          * 150 : RLV Mobilités
+          * 151 : [Mio](https://www.reseau-mio.fr/) (Millau)
+          * 153 : MTM
+          * 154 : Txik Txak
+          * 157 : [Citibus](https://www.citibus.fr/) (Narbonne)
+          * 161 : [RivConnect](https://www.riv-connect.nuamouv.com/) (Rives de Moselle)
+          * 163 : TxikTxak
     APIError:
       required:
       - error
